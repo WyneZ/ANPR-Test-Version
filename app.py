@@ -13,7 +13,7 @@ import av
 
 set_background("./imgs/background.png")
 
-folder_path = "./licenses_plates_imgs_detected/"
+folder_path = "./detected_license_imgs/"
 LICENSE_MODEL_DETECTION_DIR = './models/license_plate_detector.pt'
 COCO_MODEL_DIR = "./models/yolov8n.pt"
 
