@@ -5,13 +5,12 @@ from ultralytics import YOLO
 import cv2
 import easyocr
 import pandas as pd
-from util import set_background, write_csv
+from util import write_csv
 import uuid
 import os
 from  streamlit_webrtc import webrtc_streamer
 import av
 
-set_background("./imgs/background.png")
 
 folder_path = "./detected_license_imgs/"
 LICENSE_MODEL_DETECTION_DIR = './models/license_plate_detector.pt'
@@ -43,6 +42,7 @@ class VideoProcessor:
 
         if len(license_detections.boxes.cls.tolist()) != 0 :
             for license_plate in license_detections.boxes.data.tolist() :
+                print("This is License plate", license_plate)
                 x1, y1, x2, y2, score, class_id = license_plate
 
                 cv2.rectangle(img, (int(x1), int(y1)), (int(x2), int(y2)), (0, 255, 0), 3)
@@ -164,31 +164,31 @@ def change_state_camera() :
 
 def change_state_live() :
     st.session_state["state"] = "Live"
-    
+ 
 with header :
     _, col1, _ = st.columns([0.2,1,0.1])
-    col1.title("💥 License Car Plate Detection 🚗")
+    col1.title("Car License Plate Detection")
 
-    _, col0, _ = st.columns([0.15,1,0.1])
-    col0.image("./imgs/test_background.jpg", width=500)
+    # _, col0, _ = st.columns([0.15,1,0.1])
+    # col0.image("./imgs/test_background.jpg", width=500)
 
 
-    _, col4, _ = st.columns([0.1,1,0.2])
-    col4.subheader("Computer Vision Detection with YoloV8 🧪")
+    # _, col4, _ = st.columns([0.1,1,0.2])
+    # col4.subheader("Computer Vision Detection with YoloV8 🧪")
 
-    _, col, _ = st.columns([0.3,1,0.1])
-    col.image("./imgs/plate_test.jpg")
+    # _, col, _ = st.columns([0.3,1,0.1])
+    # col.image("./imgs/plate_test.jpg")
 
-    _, col5, _ = st.columns([0.05,1,0.1])
+    # _, col5, _ = st.columns([0.05,1,0.1])
 
-    st.write("The differents models detect the car and the license plate in a given image, then extracts the info about the license using EasyOCR, and crop and save the license plate as a Image, with a CSV file with all the data.   ")
+    # st.write("The differents models detect the car and the license plate in a given image, then extracts the info about the license using EasyOCR, and crop and save the license plate as a Image, with a CSV file with all the data.   ")
 
 
 with body :
-    _, col1, _ = st.columns([0.1,1,0.2])
-    col1.subheader("Check It-out the License Car Plate Detection Model 🔎!")
+    # _, col1, _ = st.columns([0.1,1,0.2])
+    # col1.subheader("Check It-out the License Car Plate Detection Model 🔎!")
 
-    _, colb1, colb2, colb3 = st.columns([0.2, 0.7, 0.6, 1])
+    _, colb1, colb2, colb3 = st.columns([0.4, 0.7, 0.6, 1])
 
     if colb1.button("Upload an Image", on_click=change_state_uploader) :
         pass
@@ -272,4 +272,6 @@ with body :
 
 
 
- 
+
+
+
